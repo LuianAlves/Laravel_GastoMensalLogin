@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreusuarioRequest;
-use App\Http\Requests\UpdateusuarioRequest;
+use Illuminate\Http\Request;
 
 use App\Models\usuario;
+
+use Carbon\Carbon;
+use Auth;
 
 class UsuarioController extends Controller
 {
@@ -16,18 +18,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuarios::orderBy('created_at', 'ASC')->get();
+        $usuarios = usuario::where('user_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
         return view('app.usuario.index', compact('usuarios'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -36,9 +28,26 @@ class UsuarioController extends Controller
      * @param  \App\Http\Requests\StoreusuarioRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreusuarioRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome_usuario' => 'required'
+        ], [
+            'nome_usuario.required' => 'Insira um nome para este usuário!'
+        ]);
+
+        usuario::insert([
+            'user_id' => Auth::user()->id,
+            'nome_usuario' => $request->nome_usuario,
+            'created_at' => Carbon::now()
+        ]);
+
+        $noti = [
+            'message' => 'Usuário adicionado com sucesso!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($noti);
     }
 
     /**
@@ -83,6 +92,13 @@ class UsuarioController extends Controller
      */
     public function destroy(usuario $usuario)
     {
-        //
+        $usuario->delete();
+
+        $noti = [
+            'message' => 'Usuário removido com sucesso!',
+            'alert-type' => 'error'
+        ];
+
+        return redirect()->back()->with($noti);
     }
 }

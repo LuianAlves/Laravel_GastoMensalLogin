@@ -2,6 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Home
+use App\Http\Controllers\HomeController;
+
+// Usuarios
+use App\Http\Controllers\UsuarioController;
+
+// Gastos
+use App\Http\Controllers\GastosController;
+use App\Http\Controllers\CategoriaGastosController;
+
+// Entradas
+use App\Http\Controllers\EntradasController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,11 +31,12 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [HomeController::class, 'Home'])->name('dashboard');
 });
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::resource('/usuario', UsuarioController::class);
+    Route::resource('/categoria-gastos', CategoriaGastoController::class);
+    Route::resource('/gastos', GastoController::class);
+    Route::resource('/entradas', EntradaController::class);
 });
