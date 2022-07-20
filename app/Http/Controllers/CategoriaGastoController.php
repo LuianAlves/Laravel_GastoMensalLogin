@@ -18,7 +18,7 @@ class CategoriaGastoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function Index() {
-        $categorias = CategoriaGasto::orderBy('categoria_de_gastos', 'ASC')->get();
+        $categorias = CategoriaGasto::where('user_id', Auth::user()->id)->orderBy('categoria_de_gastos', 'ASC')->get();
 
         return view('app.gastos.categoria_gasto.index', compact('categorias'));
     }

@@ -64,5 +64,12 @@
             </a>
         </li>
 
+        <li class="menu-item ">
+            <a href="{{route('logout')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-block text-danger"></i>
+                <div class="text-danger" data-i18n="Layouts">Deslogar</div>
+            </a>
+        </li>
+
     </ul>
 </aside>

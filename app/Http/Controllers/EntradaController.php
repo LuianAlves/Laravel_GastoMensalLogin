@@ -17,7 +17,7 @@ class EntradaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function Index() {
-        $entradas = Entrada::orderBy('data_da_entrada', 'DESC')->get();
+        $entradas = Entrada::where('user_id', Auth::user()->id)->orderBy('data_da_entrada', 'DESC')->get();
 
         return view('app.entradas.index', compact('entradas'));
     }
