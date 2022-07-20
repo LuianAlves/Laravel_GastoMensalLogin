@@ -31,7 +31,14 @@
 
 #Abra duas abas pelo terminal:
 
-1° aba       php artisan migrate
-2° aba       npm install -> npm run dev (Para utilizar o novo sistema Vibe)
+## 1° aba       
+
+        php artisan migrate
+
+## 2° aba       
+
+        npm install 
+        
+        npm run dev 
 
 </p> 

@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-12">
                             <label for="novo_usuario" class="form-label">Nome Usuário</label>
-                            <input type="text" class="form-control form-control" name="nome_usuario" id="novo_usuario" placeholder="John Doe">
+                            <input type="text" class="form-control form-control" name="nome_usuario" id="novo_usuario" placeholder="John Doe" autofocus>
                             @error('nome_usuario')
                                 <small class="text-danger fw-bold">{{$message}}</small>   
                             @enderror
@@ -36,7 +36,7 @@
                         <tr>
                             <th>Nome Usuário</th>
                             <th>Data de Criação</th>
-                            <th>Ações</th>
+                            <th class="col-2 text-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,13 +44,17 @@
                             <tr>
                                 <td>{{$usuario->nome_usuario}}</td>
                                 <td>{{Carbon\Carbon::parse($usuario->created_at)->format('d/m/Y')}}</td>
-                                <td>
+                                <td class="d-flex justify-content-between text-center">
+                                    <a type="button" href="{{route('usuario.edit', $usuario->id)}}">
+                                        <i class="bx bx-edit text-success fs-3"></i>
+                                    </a>   
+
                                     <form id="removeForm_{{$usuario->id}}" action="{{route('usuario.destroy', $usuario->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
 
-                                        <a class="text-danger" type="button" onclick="getElementById('removeForm_{{$usuario->id}}').submit()">
-                                            Excluir
+                                        <a type="button" onclick="getElementById('removeForm_{{$usuario->id}}').submit()">
+                                            <i class="bx bx-block text-danger fs-3"></i>
                                         </a>
                                     </form>
                                 </td>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\usuario;
+use App\Models\Usuario;
 
 use Carbon\Carbon;
 use Auth;
@@ -18,14 +18,14 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = usuario::where('user_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
+        $usuarios = Usuario::where('user_id', Auth::user()->id)->orderBy('created_at', 'ASC')->get();
         return view('app.usuario.index', compact('usuarios'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreusuarioRequest  $request
+     * @param  Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -36,7 +36,7 @@ class UsuarioController extends Controller
             'nome_usuario.required' => 'Insira um nome para este usuário!'
         ]);
 
-        usuario::insert([
+        Usuario::insert([
             'user_id' => Auth::user()->id,
             'nome_usuario' => $request->nome_usuario,
             'created_at' => Carbon::now()
@@ -51,46 +51,49 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\usuario  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function show(usuario $usuario)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\usuario  $usuario
+     * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(usuario $usuario)
+    public function edit(Usuario $usuario)
     {
-        //
+        return view('app.usuario.edit', compact('usuario'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateusuarioRequest  $request
-     * @param  \App\Models\usuario  $usuario
+     * @param  Illuminate\Http\Request  $request
+     * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateusuarioRequest $request, usuario $usuario)
+    public function update(Request $request, Usuario $usuario)
     {
-        //
+        $request->validate([
+            'nome_usuario' => 'required'
+        ]);
+
+        Usuario::findOrFail($usuario->id)->update([
+            'nome_usuario' => $request->nome_usuario,
+            'updated_at' => Carbon::now()
+        ]);
+
+        $noti = [
+            'message' => 'Usuário atualizado com sucesso!',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('usuario.index')->with($noti);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\usuario  $usuario
+     * @param  \App\Models\Usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(usuario $usuario)
+    public function destroy(Usuario $usuario)
     {
         $usuario->delete();
 

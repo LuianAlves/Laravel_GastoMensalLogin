@@ -35,8 +35,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 });
 
 Route::middleware(['auth:sanctum'])->group(function() {
-    Route::resource('/usuario', UsuarioController::class);
-    Route::resource('/categoria-gastos', CategoriaGastoController::class);
-    Route::resource('/gastos', GastoController::class);
-    Route::resource('/entradas', EntradaController::class);
+    Route::resource('/usuario', UsuarioController::class)->except('create', 'show');
+    Route::resource('/categoria-gastos', CategoriaGastoController::class)->except('create', 'show');
+    Route::resource('/gastos', GastoController::class)->except('create', 'show');
+    Route::resource('/entradas', EntradaController::class)->except('create', 'show');
 });
