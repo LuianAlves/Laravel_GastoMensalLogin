@@ -52,17 +52,6 @@ class CategoriaGastoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CategoriaGasto  $categoriaGasto
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CategoriaGasto $categoriaGasto)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\CategoriaGasto  $categoriaGasto

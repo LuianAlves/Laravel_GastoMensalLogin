@@ -9,11 +9,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsuarioController;
 
 // Gastos
-use App\Http\Controllers\GastosController;
+use App\Http\Controllers\GastoController;
 use App\Http\Controllers\CategoriaGastoController;
 
 // Entradas
-use App\Http\Controllers\EntradasController;
+use App\Http\Controllers\EntradaController;
 
 /*
 |--------------------------------------------------------------------------
