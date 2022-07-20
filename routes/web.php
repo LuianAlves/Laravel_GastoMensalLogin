@@ -10,7 +10,7 @@ use App\Http\Controllers\UsuarioController;
 
 // Gastos
 use App\Http\Controllers\GastosController;
-use App\Http\Controllers\CategoriaGastosController;
+use App\Http\Controllers\CategoriaGastoController;
 
 // Entradas
 use App\Http\Controllers\EntradasController;
